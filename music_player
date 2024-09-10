@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        header input {
+            width: 300px;
+            padding: 5px;
+        }
+
+        header nav a {
+            margin-left: 20px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        #player-controls {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #player-controls button {
+            margin: 0 10px;
+        }
+
+        #volume-control {
+            margin-left: 20px;
+        }
+
+        #playlist, #music-library {
+            padding: 20px;
+        }
+
+        #playlist ul, #search-results {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #playlist ul li, #search-results li {
+            padding: 5px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <input type="text" id="search" placeholder="Search for music...">
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Playlist</a>
+            <a href="#">Genres</a>
+        </nav>
+    </header>
+    
+    <main>
+        <div id="player-controls">
+            <button id="prev">Previous</button>
+            <button id="play-pause">Play</button>
+            <button id="next">Next</button>
+            <input type="range" id="volume-control" min="0" max="100" value="50">
+            <div id="now-playing">
+                <img id="album-art" src="" alt="Album Art" style="width: 100px; height: 100px;">
+                <p id="track-title"></p>
+                <p id="track-artist"></p>
+            </div>
+        </div>
+        
+        <div id="playlist">
+            <h2>Playlist</h2>
+            <ul id="playlist-tracks"></ul>
+        </div>
+        
+        <div id="music-library">
+            <h2>Music Library</h2>
+            <div id="category-filters">
+                <!-- Genre filters will be populated here -->
+            </div>
+            <ul id="search-results"></ul>
+        </div>
+    </main>
+    
+    <footer>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const playPauseButton = document.getElementById('play-pause');
+            const prevButton = document.getElementById('prev');
+            const nextButton = document.getElementById('next');
+            const volumeControl = document.getElementById('volume-control');
+            const nowPlayingTitle = document.getElementById('track-title');
+            const nowPlayingArtist = document.getElementById('track-artist');
+            const albumArt = document.getElementById('album-art');
+
+            let audio = new Audio();
+            let isPlaying = false;
+
+            playPauseButton.addEventListener('click', () => {
+                if (isPlaying) {
+                    audio.pause();
+                    playPauseButton.textContent = 'Play';
+                } else {
+                    audio.play();
+                    playPauseButton.textContent = 'Pause';
+                }
+                isPlaying = !isPlaying;
+            });
+
+            prevButton.addEventListener('click', () => {
+                // Logic for previous track
+            });
+
+            nextButton.addEventListener('click', () => {
+                // Logic for next track
+            });
+
+            volumeControl.addEventListener('input', () => {
+                audio.volume = volumeControl.value / 100;
+            });
+
+            function playTrack(trackUrl, title, artist, artUrl) {
+                audio.src = trackUrl;
+                nowPlayingTitle.textContent = title;
+                nowPlayingArtist.textContent = artist;
+                albumArt.src = artUrl;
+                audio.play();
+                playPauseButton.textContent = 'Pause';
+                isPlaying = true;
+            }
+
+            // Example: Load a track when the page loads (for testing)
+            // playTrack('path/to/track.mp3', 'Track Title', 'Artist Name', 'path/to/album-art.jpg');
+        });
+    </script>
+</body>
+</html>
